@@ -1,16 +1,17 @@
+const ANIMAL_HEALTH = 100;
+const CARNIVORE_DAMAGE = 50;
+
 class Animal {
   static alive = [];
-  health = 100;
+  health = ANIMAL_HEALTH;
 
   constructor(name) {
     this.name = name;
     Animal.alive.push(this);
   }
 
-  removeAnimal(animal) {
-    const animalIndex = Animal.alive.indexOf(animal);
-
-    Animal.alive.splice(animalIndex, 1);
+  removeAnimal() {
+    Animal.alive = Animal.alive.filter((animal) => animal.health !== 0);
   }
 }
 
@@ -28,10 +29,10 @@ class Carnivore extends Animal {
       return;
     }
 
-    herbivore.health -= 50;
+    herbivore.health -= CARNIVORE_DAMAGE;
 
     if (herbivore.health <= 0) {
-      this.removeAnimal(herbivore);
+      this.removeAnimal();
     }
   }
 }
